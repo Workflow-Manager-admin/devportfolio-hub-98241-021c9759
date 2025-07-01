@@ -4,39 +4,39 @@
 const contactService = require('../services/contact');
 
 // PUBLIC_INTERFACE
+/**
+ * @swagger
+ * /api/contact:
+ *   post:
+ *     summary: Submit contact form
+ *     description: Sends a message from the client contact form to the developer. (Submission is demo only; no actual email is sent.)
+ *     tags: [Contact]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/ContactFormInput'
+ *     responses:
+ *       200:
+ *         description: Contact message sent successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: success
+ *                 message:
+ *                   type: string
+ *                   example: Your message has been received.
+ *       400:
+ *         description: Invalid data. All fields are required: name, email, message.
+ *       500:
+ *         description: Server error (unexpected).
+ */
 exports.submitContactForm = async (req, res, next) => {
-  /**
-   * @swagger
-   * /api/contact:
-   *   post:
-   *     summary: Submit contact form
-   *     description: Sends a message from the contact form to the developer (simulates submission).
-   *     requestBody:
-   *       required: true
-   *       content:
-   *         application/json:
-   *           schema:
-   *             $ref: '#/components/schemas/ContactFormInput'
-   *     tags: [Contact]
-   *     responses:
-   *       200:
-   *         description: Contact message sent successfully.
-   *         content:
-   *           application/json:
-   *             schema:
-   *               type: object
-   *               properties:
-   *                 status:
-   *                   type: string
-   *                   example: success
-   *                 message:
-   *                   type: string
-   *                   example: Your message has been received.
-   *       400:
-   *         description: Invalid data
-   *       500:
-   *         description: Server error
-   */
   try {
     const { name, email, message } = req.body;
     if (!name || !email || !message) {
